@@ -3,6 +3,7 @@ import { AllPeopleQuery } from "@/api/graphql/graphql";
 import { Column } from "@/shared/components/VirtualTable/types";
 import useVirtualTable from "@/shared/components/VirtualTable/useVirtualTable";
 import VirtualTable from "@/shared/components/VirtualTable/VirtualTable";
+import useVirtualTable2Query from "@/shared/components/VirtualTable2/useVirtualTable2Query";
 import { CardPage, CardTitle } from "@/shared/ui/card";
 
 const allPeopleDocument = gql(`
@@ -29,7 +30,12 @@ const columns: Column<AllPeopleQuery["allPeople"]>[] = [
 export default function Characters() {
   const { query, loadMore } = useVirtualTable({
     queryKey: "allPeople",
+    document: allPeopleDocument,
+    select: (r) => r.allPeople,
+  });
 
+  useVirtualTable2Query({
+    queryKey: "allPeople2",
     document: allPeopleDocument,
     select: (r) => r.allPeople,
   });
