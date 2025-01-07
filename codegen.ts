@@ -10,6 +10,9 @@ const config: CodegenConfig = {
   generates: {
     "./src/api/graphql/": {
       preset: "client",
+      presetConfig: {
+        fragmentMasking: false,
+      },
     },
     "./src/api/schema.graphql": {
       plugins: ["schema-ast"],

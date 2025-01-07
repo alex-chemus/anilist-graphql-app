@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ArrowLeft } from "lucide-react";
 
 import { cn } from "@/shared/utils/cn";
 
@@ -78,9 +79,35 @@ CardFooter.displayName = "CardFooter";
 
 const CardPage = ({
   className,
+  onNavigateBack,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & {
+  onNavigateBack?: () => void;
+}) => (
+  <Card
+    className={cn("relative m-auto min-h-full w-3/4 p-10", className)}
+    {...props}
+  >
+    {onNavigateBack ? (
+      <button
+        onClick={onNavigateBack}
+        className="absolute left-[-55px] top-0 flex h-10 w-10 items-center justify-center rounded-full border bg-card shadow-sm"
+      >
+        <ArrowLeft />
+      </button>
+    ) : null}
+    {props.children}
+  </Card>
+);
+
+const ListCard = ({
+  className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <Card className={cn("w-3/4 p-10", className)} {...props} />
+  <Card
+    className={cn("mb-2 flex h-16 items-center gap-3 p-2", className)}
+    {...props}
+  />
 );
 
 export {
@@ -91,4 +118,5 @@ export {
   CardDescription,
   CardContent,
   CardPage,
+  ListCard,
 };

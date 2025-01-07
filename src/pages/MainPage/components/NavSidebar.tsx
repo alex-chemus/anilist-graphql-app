@@ -8,8 +8,8 @@ interface Tab {
 
 const tabs: Tab[] = [
   {
-    path: "/films",
-    title: "Films",
+    path: "/anime",
+    title: "Anime",
   },
   {
     path: "/characters",
@@ -21,7 +21,7 @@ export default function AppSidebar() {
   const location = useLocation();
 
   return (
-    <div className="flex h-screen w-64 flex-shrink-0 flex-col bg-zinc-100 p-6">
+    <div className="sticky top-0 flex h-screen w-64 flex-shrink-0 flex-col bg-zinc-100 p-6">
       {tabs.map((tab) => (
         <Link
           key={tab.path}

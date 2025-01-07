@@ -1,49 +1,12 @@
-import { gql } from "@/api";
-import { AllPeopleQuery } from "@/api/graphql/graphql";
-import { Column } from "@/shared/components/VirtualTable/types";
-import useVirtualTable from "@/shared/components/VirtualTable/useVirtualTable";
-import VirtualTable from "@/shared/components/VirtualTable/VirtualTable";
-import useVirtualTable2Query from "@/shared/components/VirtualTable2/useVirtualTable2Query";
-import { CardPage, CardTitle } from "@/shared/ui/card";
-
-const allPeopleDocument = gql(`
-  query AllPeople($after: String, $first: Int) 
-    {
-      allPeople(after: $after, first: $first) {
-        edges {
-        node {
-          name
-        }
-        cursor
-      }
-    }
-  }
-`);
-
-const columns: Column<AllPeopleQuery["allPeople"]>[] = [
-  {
-    title: "name",
-    field: "name",
-  },
-];
+import { Route, Routes } from "react-router-dom";
+import CharactersList from "./CharactersList/CharactersList";
+import CharacterCard from "./CharacterCard/CharacterCard";
 
 export default function Characters() {
-  const { query, loadMore } = useVirtualTable({
-    queryKey: "allPeople",
-    document: allPeopleDocument,
-    select: (r) => r.allPeople,
-  });
-
-  useVirtualTable2Query({
-    queryKey: "allPeople2",
-    document: allPeopleDocument,
-    select: (r) => r.allPeople,
-  });
-
   return (
-    <CardPage>
-      <CardTitle>Characters List</CardTitle>
-      <VirtualTable query={query} loadMore={loadMore} columns={columns} />
-    </CardPage>
+    <Routes>
+      <Route path="/" element={<CharactersList />} />
+      <Route path="/:id" element={<CharacterCard />} />
+    </Routes>
   );
 }

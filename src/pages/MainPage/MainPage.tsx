@@ -1,18 +1,35 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import NavSidebar from "./components/NavSidebar";
-import CharactersTable from "../Characters/CharactersTable/CharactersTable";
-import Films from "../Films/Films";
+import Anime from "../Anime/Anime";
+import { Suspense } from "react";
+import { PageSkeleton } from "@/shared/ui/skeleton";
 import Characters from "../Characters/Characters";
 
 export default function MainPage() {
   return (
-    <main className="flex h-screen">
+    <main className="flex min-h-screen">
       <NavSidebar />
       <section className="flex-grow p-12">
         <Routes>
-          <Route path="/" element={<Navigate to="films" />} />
-          <Route path="films/*" element={<Films />} />
-          <Route path="characters/*" element={<Characters />} />
+          <Route path="/" element={<Navigate to="anime" />} />
+
+          <Route
+            path="anime/*"
+            element={
+              <Suspense fallback={<PageSkeleton />}>
+                <Anime />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="characters/*"
+            element={
+              <Suspense fallback={<PageSkeleton />}>
+                <Characters />
+              </Suspense>
+            }
+          />
         </Routes>
       </section>
     </main>
