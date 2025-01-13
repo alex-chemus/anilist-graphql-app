@@ -1,6 +1,5 @@
-export function capitalizeFirstLetter(string: string) {
-  console.log(string.split("")[0].toUpperCase());
-  return (
-    string.split("")[0].toUpperCase() + string.slice(1).toLocaleLowerCase()
-  );
-}
+export const capitalizeFirstLetter = (str: string) =>
+  str.split("")[0].toUpperCase() + str.slice(1).toLocaleLowerCase();
+
+export const booleanFromString = (str: string) =>
+  str.toLocaleLowerCase() === "true";

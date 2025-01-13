@@ -53,22 +53,26 @@ const AccordionContent = React.forwardRef<
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-interface AssembledAccordionProps<K extends string> {
-  items: [K, React.ReactNode | string][];
-  expanded?: K;
+export interface AssembledAccordionProps<K extends string> {
+  items: {
+    title: K;
+    content: React.ReactNode | string;
+  }[];
+  value?: K | null;
 }
 
 const AssembledAccordion = <K extends string>({
   items,
+  value,
 }: AssembledAccordionProps<K>) => {
   return (
-    <Accordion type="single" collapsible>
-      {items.map(([title, item]) => (
+    <Accordion type="single" collapsible value={value ?? undefined}>
+      {items.map(({ title, content }) => (
         <AccordionItem value={title} key={title}>
           <AccordionTrigger className="hover:no-underline">
             {title}
           </AccordionTrigger>
-          <AccordionContent>{item}</AccordionContent>
+          <AccordionContent>{content}</AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>

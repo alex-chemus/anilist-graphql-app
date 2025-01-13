@@ -9,6 +9,7 @@ import { AssembledSelect } from "@/shared/ui/select";
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils";
 import { getListHeight } from "@/shared/utils/list-utils";
 import { Link } from "@/shared/ui/link";
+import { INCREASE_VIEWPORT } from "@/shared/constants";
 
 export default function CharactersList() {
   const { id } = useParams();
@@ -34,6 +35,7 @@ export default function CharactersList() {
       <Virtuoso
         style={{ height: getListHeight(data?.length) }}
         data={data ?? []}
+        increaseViewportBy={INCREASE_VIEWPORT}
         itemContent={(_, item) => (
           <ListCard>
             {item?.image?.medium ? (

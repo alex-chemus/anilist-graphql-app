@@ -1,5 +1,5 @@
 import { gql } from "@/api";
-import { AnimeListQuery } from "@/api/graphql/graphql";
+import { AnimeTableQuery } from "@/api/graphql/graphql";
 import { Link } from "@/shared/ui/link";
 import { ExtractColumns, PageTable } from "@/shared/components/PageTable";
 import { CardPage } from "@/shared/ui/card";
@@ -7,8 +7,8 @@ import { renderTitle } from "@/shared/utils/renderTitle";
 import { capitalizeFirstLetter } from "@/shared/utils/string-utils";
 import { Skeleton } from "@/shared/ui/skeleton";
 
-const animeListDocument = gql(`
-  query AnimeList($page: Int!, $perPage: Int!, $search: String) {
+const animeTableDocument = gql(`
+  query AnimeTable($page: Int!, $perPage: Int!, $search: String) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         currentPage
@@ -31,7 +31,7 @@ const animeListDocument = gql(`
   }  
 `);
 
-const columns: ExtractColumns<AnimeListQuery> = [
+const columns: ExtractColumns<AnimeTableQuery> = [
   {
     key: "coverImage",
     title: "",
@@ -77,12 +77,12 @@ const columns: ExtractColumns<AnimeListQuery> = [
   },
 ];
 
-export default function AnimeList() {
+export default function AnimeTable() {
   return (
     <CardPage className="flex flex-col">
       <PageTable
         queryKey="animeList"
-        document={animeListDocument}
+        document={animeTableDocument}
         columns={columns}
       />
     </CardPage>

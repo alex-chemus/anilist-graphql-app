@@ -53,4 +53,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+const BadgeButton = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+  return (
+    <Button
+      {...props}
+      variant="outline"
+      className={cn(
+        props.className,
+        "h-auto whitespace-nowrap rounded-full px-2.5 py-0.5",
+        "hover:bg-white hover:text-indigo-500",
+      )}
+    />
+  );
+};
+
+export { Button, buttonVariants, BadgeButton };

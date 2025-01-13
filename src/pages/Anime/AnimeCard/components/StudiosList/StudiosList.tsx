@@ -8,6 +8,7 @@ import { Virtuoso } from "react-virtuoso";
 import { ListCard } from "@/shared/ui/card";
 import { getListHeight } from "@/shared/utils/list-utils";
 import { Badge } from "@/shared/ui/badge";
+import { INCREASE_VIEWPORT } from "@/shared/constants";
 
 export default function StudiosList() {
   const { id } = useParams();
@@ -27,10 +28,9 @@ export default function StudiosList() {
         className="mb-3 flex-grow"
       />
       <Virtuoso
+        increaseViewportBy={INCREASE_VIEWPORT}
         data={data ?? []}
-        style={{
-          height: getListHeight(data?.length),
-        }}
+        style={{ height: getListHeight(data?.length) }}
         itemContent={(_, item) => (
           <ListCard key={item?.id} className="flex gap-1">
             <span>{item?.name}</span>

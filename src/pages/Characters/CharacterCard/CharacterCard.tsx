@@ -1,24 +1,36 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useCharacterCard from "./api/useCharacterCard";
 import { CardPage } from "@/shared/ui/card";
 import { cn } from "@/shared/utils/cn";
 import { Skeleton } from "@/shared/ui/skeleton";
 import markdownToTxt from "markdown-to-txt";
-import { ReactNode } from "react";
 import { renderDate } from "@/shared/utils/renderDate";
 import CharacterAppearancesTable from "./components/CharacterAppearancesTable/CharacterAppearancesTable";
-import { AssembledAccordion } from "@/shared/ui/accordion";
+import {
+  AssembledAccordion,
+  AssembledAccordionProps,
+} from "@/shared/ui/accordion";
+import { booleanFromString } from "@/shared/utils/string-utils";
 
 export default function CharacterCard() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { data } = useCharacterCard(Number(id));
 
-  const accordionItems: [string, ReactNode | string][] = [
-    /* api возвращает только markdown или html, приходится форматировать */
-    ["Description", markdownToTxt(data?.description ?? "")],
-    ["Appearances", <CharacterAppearancesTable />],
+  const accordionItems: AssembledAccordionProps<
+    "Description" | "Appearances"
+  >["items"] = [
+    {
+      title: "Description",
+      /* api возвращает только markdown или html, приходится форматировать */
+      content: markdownToTxt(data?.description ?? ""),
+    },
+    {
+      title: "Appearances",
+      content: <CharacterAppearancesTable />,
+    },
   ];
 
   const descriptionItems: [string, string | null | undefined][] = [
@@ -26,6 +38,12 @@ export default function CharacterCard() {
     ["Age", data?.age],
     ["Date of birth", renderDate(data?.dateOfBirth)],
   ];
+
+  const accordionValue = booleanFromString(
+    searchParams.get("appearancesOpen") ?? "",
+  )
+    ? "Appearances"
+    : null;
 
   return (
     <CardPage onNavigateBack={() => navigate(-1)} className="flex h-full gap-9">
@@ -47,7 +65,7 @@ export default function CharacterCard() {
             </p>
           ) : null,
         )}
-        <AssembledAccordion items={accordionItems} />
+        <AssembledAccordion items={accordionItems} value={accordionValue} />
       </div>
     </CardPage>
   );

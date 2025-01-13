@@ -15,6 +15,10 @@ const tabs: Tab[] = [
     path: "/characters",
     title: "Characters",
   },
+  {
+    path: "/studios",
+    title: "Studios",
+  },
 ];
 
 export default function AppSidebar() {

@@ -159,8 +159,6 @@ const AssembledSelect = ({
   className,
   itemRender,
 }: AssembledSelectProps) => {
-  console.log(items);
-
   return (
     <div className={className}>
       <Select value={value} onValueChange={onValueChange}>

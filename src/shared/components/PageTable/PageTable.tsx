@@ -16,8 +16,6 @@ import { DEFAULT_PER_PAGE } from "@/shared/constants";
 import { Input } from "@/shared/ui/input";
 import { Skeleton } from "@/shared/ui/skeleton";
 
-const sleep = (ms = 200) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export default function PageTable<D extends DataModel>({
   queryKey,
   document,
@@ -28,14 +26,12 @@ export default function PageTable<D extends DataModel>({
 
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: [queryKey, perPage, search],
-    queryFn: async ({ pageParam: page, signal }) => {
-      await sleep();
-      return gqlClient.request({
+    queryFn: async ({ pageParam: page, signal }) =>
+      gqlClient.request({
         document,
         variables: { page, perPage, search },
         signal,
-      });
-    },
+      }),
     initialPageParam: 1,
     getNextPageParam: (_, __, lastPage) => lastPage + 1,
     select: (data) =>
@@ -74,15 +70,17 @@ export default function PageTable<D extends DataModel>({
             </TableRow>
           )}
           data={data}
-          itemContent={(_, record) =>
-            columns.map((column) => (
-              <TableCell key={column.key as Key}>
-                {record && column.key in record ? (
-                  <CellRender record={record} column={column} />
-                ) : null}
-              </TableCell>
-            ))
-          }
+          itemContent={(_, record) => (
+            <>
+              {columns.map((column) => (
+                <TableCell key={column.key as Key}>
+                  {record && column.key in record ? (
+                    <CellRender record={record} column={column} />
+                  ) : null}
+                </TableCell>
+              ))}
+            </>
+          )}
           endReached={() => fetchNextPage()}
         />
       ) : (

@@ -19,5 +19,5 @@ export default function CellRender<D extends DataModel>({
     return value;
   }
 
-  return "object";
+  return JSON.stringify(value);
 }

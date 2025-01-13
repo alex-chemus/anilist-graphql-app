@@ -11,6 +11,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { Link } from "@/shared/ui/link";
 import { renderTitle } from "@/shared/utils/renderTitle";
 import { Badge } from "@/shared/ui/badge";
+import { INCREASE_VIEWPORT } from "@/shared/constants";
 
 export default function CharacterAppearancesTable() {
   const { id } = useParams();
@@ -36,6 +37,7 @@ export default function CharacterAppearancesTable() {
       <Virtuoso
         style={{ height: getListHeight(data?.length) }}
         data={data ?? []}
+        increaseViewportBy={INCREASE_VIEWPORT}
         itemContent={(_, item) => (
           <ListCard>
             {item?.coverImage?.medium ? (
