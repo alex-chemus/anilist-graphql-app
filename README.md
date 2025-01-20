@@ -1,6 +1,9 @@
 # AniList GraphQL App
 
-В начале разработки приложение должно было быть на другую тему и работать на [Star Wars API](http://graphql.org/swapi-graphql/). Однако возникли [проблемы](https://github.com/graphql/swapi-graphql/issues/229) с API, поэтому пришлось менять тематику пет-проекта и искать замену API. Итоговое приложение работает с [AniList API](https://docs.anilist.co/)
+Приложение работает с [AniList API](https://docs.anilist.co/), крупной базой данных аниме и связанных с ним данных. Пет-проект нацелен на работу с 
+- Виртуализацией
+- GraphQL
+- Shadcn/ui
 
 ## Просмотр и разработка
 
